@@ -1,10 +1,10 @@
 # 2. Kurs yaratish
 from django.shortcuts import render, redirect, get_list_or_404
 from django.db.models import Count
-from .models import Cource
 from .forms import CourseForms
 from enrollments.models import Enrollments
 from django.contrib import messages
+from django.http import HttpResponse
 
 
 
@@ -13,7 +13,7 @@ def course_list(request):
     context = {
         'courses': cources
     }
-    return render(request, 'courses/course_list.html')
+    return HttpResponse("Course list")
 
 
 
