@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Error</title>
+</head>
+<body>
+
+<h2>O‘chirish mumkin emas ❌</h2>
+
+<p>
+    <strong>{{ student.full_name }}</strong> kurslarga yozilgan.
+    Avval kurslardan o‘chiring.
+</p>
+
+<a href="{% url 'student_detail' student.id %}">Orqaga qaytish</a>
+
+</body>
+</html>

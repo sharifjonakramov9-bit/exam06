@@ -63,3 +63,16 @@ def student_detail(request, id):
         'student': student,
         'enrollments': enrollments
     })
+
+# 4 Student delete
+def student_delete(request, id):
+    student = get_list_or_404(Student, id=id)
+
+    has_enrollments = Enrollments.objects.filter(student=student).exists()
+    if has_enrollments:
+        return render(request, 'students/student_delete_error,html', {
+            'student': student
+        })
+    if request.method == 'POST':
+        Student.delete()
+        return redirect
