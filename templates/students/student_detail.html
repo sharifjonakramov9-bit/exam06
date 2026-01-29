@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Detail</title>
+</head>
+<body>
+
+<h1>{{ student.full_name }}</h1>
+
+<p><strong>Email:</strong> {{ student.email }}</p>
+<p><strong>Age:</strong> {{ student.age }}</p>
+<p><strong>Created:</strong> {{ student.created_at }}</p>
+
+<hr>
+
+<h2>Enrolled Courses</h2>
+
+{% if enrollments %}
+    <ul>
+        {% for enroll in enrollments %}
+            <li>
+                {{ enroll.course.title }}
+                ({{ enroll.course.duration_weeks }} weeks)
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>This student is not enrolled in any course.</p>
+{% endif %}
+
+<br>
+<a href="{% url 'student_list' %}">Back to list</a>
+
+</body>
+</html>

@@ -1,8 +1,9 @@
 # 1 Studentlar ro'yxati
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from .models import Student
 from django.db.models import Q
 from django.core.exceptions import ValidationError
+from enrollments.models import Enrollments
 
 
 def student_list(request):
@@ -49,3 +50,16 @@ def student_create(request):
         return render(request, 'students/student_create.html', {
             'error': error
         })
+    
+
+
+# 3 Student detail
+def student_detail(request, id):
+    student = get_list_or_404(Student, id=id)
+
+    enrollments = Enrollments.objects.filter(student=student)
+
+    return render(request, 'students/student_detail.html', {
+        'student': student,
+        'enrollments': enrollments
+    })
