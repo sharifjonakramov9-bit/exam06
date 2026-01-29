@@ -1,6 +1,7 @@
 # 2. Kurs yaratish
 from django.shortcuts import render, redirect, get_list_or_404
 from django.db.models import Count
+from .models import Course
 from .forms import CourseForms
 from enrollments.models import Enrollments
 from django.contrib import messages
@@ -9,7 +10,7 @@ from django.http import HttpResponse
 
 
 def course_list(request):
-    cources = Cource.objects.annotate(student_count=Count('enrollments'))
+    cources = Course.objects.annotate(student_count=Count('enrollments'))
     context = {
         'courses': cources
     }
@@ -23,7 +24,7 @@ def course_create(request):
         description = request.POST.get('description')
         duration_weeks = request.POST.get('duration_weeks')
 
-        course = Cource(
+        course = Course(
             title=title, 
             description=description,
             duration_weeks=duration_weeks
@@ -40,7 +41,7 @@ def course_create(request):
 
 # 3. Kurs detail sahifasi
 def course_detail(request, id):
-    course = get_list_or_404(Cource, id=id)
+    course = get_list_or_404(Course, id=id)
 
     enrollments = course.enrollments.select_related('student')
 
@@ -53,7 +54,7 @@ def course_detail(request, id):
 
 # 4. Kursni tahrirlash
 def course_edit(request, id):
-    course = get_list_or_404(Cource, id=id)
+    course = get_list_or_404(Course, id=id)
 
     if request.method == 'POST':
         form = CourseForms(request.POST, instance=course)
@@ -74,7 +75,7 @@ def course_edit(request, id):
 
 # 5. Kursni o‘chirish
 def course_delete(request, id):
-    course = get_list_or_404(Cource, id=id)
+    course = get_list_or_404(Course, id=id)
 
     if request.methon=='POST':
         has_students = Enrollments.objects.filter(course=course).exists()
