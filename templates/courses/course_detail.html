@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>📘 {{ course.title }}</h1>
+
+<p><strong>Description:</strong> {{ course.description|default:"No description" }}</p>
+<p><strong>Duration:</strong> {{ course.duration_weeks }} weeks</p>
+<p><strong>Created:</strong> {{ course.created_at }}</p>
+
+<hr>
+
+<h2>👨‍🎓 Enrolled Students ({{ students.count }})</h2>
+
+<ul>
+    {% for enrollment in students %}
+        <li>{{ enrollment.student.full_name }}</li>
+    {% empty %}
+        <li>No students enrolled.</li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<a href="{% url 'courses:edit' course.id %}">✏️ Edit</a>
+
+<form action="{% url 'courses:delete' course.id %}"
+      method="post"
+      style="display:inline;">
+    {% csrf_token %}
+    <button type="submit"
+            onclick="return confirm('Delete this course?')">
+        🗑 Delete
+    </button>
+</form>
+
+<br><br>
+<a href="{% url 'courses:list' %}">⬅ Back to list</a>
+{% endblock %}

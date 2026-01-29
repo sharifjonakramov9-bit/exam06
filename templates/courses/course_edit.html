@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>✏️ Edit Course</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        <label>Title:</label><br>
+        <input type="text"
+               name="title"
+               value="{{ course.title }}"
+               required>
+    </p>
+
+    <p>
+        <label>Description:</label><br>
+        <textarea name="description">{{ course.description }}</textarea>
+    </p>
+
+    <p>
+        <label>Duration (weeks):</label><br>
+        <input type="number"
+               name="duration_weeks"
+               min="1"
+               value="{{ course.duration_weeks }}"
+               required>
+    </p>
+
+    <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'courses:detail' course.id %}">⬅ Cancel</a>
+{% endblock %}
