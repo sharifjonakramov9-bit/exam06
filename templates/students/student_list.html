@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+<body>
+<h1>Students List</h1>
+
+<!-- Filter form -->
+<form method="get">
+    <input type="number" name="min_age" placeholder="Min age"
+           value="{{ request.GET.min_age }}">
+
+    <input type="text" name="search" placeholder="Search name or email"
+           value="{{ request.GET.search }}">
+
+    <button type="submit">Filter</button>
+</form>
+
+<hr>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Full name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Created at</th>
+    </tr>
+
+    {% for student in students %}
+    <tr>
+        <td>{{ student.full_name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.created_at }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">No students found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
