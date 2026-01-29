@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Studentni kursga yozish</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <p style="color:red;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Student:</label>
+    <select name="student" required>
+        <option value="">---</option>
+        {% for student in students %}
+            <option value="{{ student.id }}">{{ student.full_name }}</option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Course:</label>
+    <select name="course" required>
+        <option value="">---</option>
+        {% for course in courses %}
+            <option value="{{ course.id }}">{{ course.title }}</option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <button type="submit">Yozish</button>
+</form>
+
+{% endblock %}
