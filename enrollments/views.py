@@ -4,6 +4,8 @@ from .models import Enrollments
 from students.models import Student
 from courses.models import Course
 
+
+# 1 Studentni kursga yozish
 def enrollment_create(request):
     students  = Student.objects.all()
     courses = Course.objects.all()
@@ -29,4 +31,12 @@ def enrollment_create(request):
     return render(request, 'enrollments/enrollment_form.html', {
         "student": student, 
         "courses": course
+    })
+
+
+# 2 Barcha enrolments
+def enrollment_list(request):
+    enrollments = Enrollments.objects.select_related("student", "course")
+    return render(request, "enrollments/enrollment_list.html", {
+        "enrollments": enrollments
     })

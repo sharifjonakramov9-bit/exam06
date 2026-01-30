@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Barcha yozilishlar</h2>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Student</th>
+        <th>Course</th>
+        <th>Yozilgan sana</th>
+    </tr>
+
+    {% for enrollment in enrollments %}
+    <tr>
+        <td>{{ enrollment.student.full_name }}</td>
+        <td>{{ enrollment.course.title }}</td>
+        <td>{{ enrollment.enrolled_at }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">Hozircha yozilishlar yo‘q</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="{% url 'enrollment_create' %}">➕ Studentni kursga yozish</a>
+
+{% endblock %}
